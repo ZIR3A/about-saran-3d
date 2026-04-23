@@ -8,7 +8,8 @@ import * as THREE from "three";
 
 function FloatingModel() {
   const meshRef = useRef();
-  const groupRef = useRef();
+  const ring1Ref = useRef();
+  const ring2Ref = useRef();
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -24,19 +25,23 @@ function FloatingModel() {
   }, []);
 
   useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15 + scrollProgress * Math.PI * 2;
-      
-      const tiltAmount = scrollProgress * Math.PI * 0.5;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1 + tiltAmount;
-    }
+    const time = state.clock.elapsedTime;
     
     if (meshRef.current) {
-      meshRef.current.distort = 0.3 + Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+      meshRef.current.rotation.x = time * 0.5;
+      meshRef.current.rotation.y = time * 0.3;
       
-      const scaleBase = 0.8;
-      const scaleMultiplier = 1 + scrollProgress * 0.8;
-      meshRef.current.scale.setScalar(scaleBase * scaleMultiplier);
+      meshRef.current.distort = 0.4 + Math.sin(time * 0.5) * 0.15;
+      
+      const baseScale = 1 + scrollProgress * 0.5;
+      meshRef.current.scale.setScalar(baseScale);
+    }
+    
+    if (ring1Ref.current) {
+      ring1Ref.current.rotation.z = -time * 2;
+    }
+    if (ring2Ref.current) {
+      ring2Ref.current.rotation.z = time * 1.5;
     }
   });
 
@@ -47,31 +52,36 @@ function FloatingModel() {
       floatIntensity={0.8}
       floatingRange={[-0.2, 0.2]}
     >
-      <group ref={groupRef}>
-        <mesh ref={meshRef} scale={0.8}>
-          <icosahedronGeometry args={[1, 1]} />
+      <group>
+        <mesh ref={meshRef}>
+          <torusKnotGeometry args={[1, 0.3, 128, 16]} />
           <MeshDistortMaterial
             color="#E50914"
-            envMapIntensity={0.4}
+            envMapIntensity={1}
             clearcoat={1}
             clearcoatRoughness={0}
             metalness={0.9}
             roughness={0.1}
-            distort={0.3}
-            speed={2}
+            distort={0.4}
+            speed={3}
           />
         </mesh>
 
-        <mesh scale={1.2}>
-          <icosahedronGeometry args={[1, 0]} />
-          <meshBasicMaterial color="#1F1F1F" transparent opacity={0.3} wireframe />
+        <mesh ref={ring1Ref} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[2.5, 0.02, 16, 100]} />
+          <meshBasicMaterial color="#E50914" transparent opacity={0.6} />
+        </mesh>
+
+        <mesh ref={ring2Ref} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[2.5, 0.01, 16, 100]} />
+          <meshBasicMaterial color="#E50914" transparent opacity={0.3} />
         </mesh>
       </group>
     </Float>
   );
 }
 
-function Particles({ count = 500 }) {
+function Particles({ count = 200 }) {
   const particles = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const seededRandom = (i) => {
@@ -79,9 +89,11 @@ function Particles({ count = 500 }) {
       return x - Math.floor(x);
     };
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (seededRandom(i) - 0.5) * 20;
-      positions[i * 3 + 1] = (seededRandom(i + count) - 0.5) * 20;
-      positions[i * 3 + 2] = (seededRandom(i + count * 2) - 0.5) * 20;
+      const angle = (i / count) * Math.PI * 2;
+      const radius = 3 + seededRandom(i) * 0.8;
+      positions[i * 3] = Math.cos(angle) * radius;
+      positions[i * 3 + 1] = (seededRandom(i + count) - 0.5) * 4;
+      positions[i * 3 + 2] = Math.sin(angle) * radius;
     }
     return positions;
   }, [count]);
@@ -90,8 +102,7 @@ function Particles({ count = 500 }) {
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
-      pointsRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.01) * 0.1;
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.3;
     }
   });
 
