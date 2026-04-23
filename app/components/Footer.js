@@ -57,7 +57,7 @@ export default function Footer() {
 
           <motion.button
             onClick={scrollToTop}
-            className="p-3 text-muted hover:text-main transition-colors border border-line hover:border-accent rounded-full"
+            className="p-3 text-muted hover:text-main transition-colors border border-line hover:border-accent rounded-full cursor-pointer"
             aria-label="Scroll to top"
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}

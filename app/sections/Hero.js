@@ -79,7 +79,7 @@ export default function Hero() {
         >
           <motion.button
             onClick={() => scrollToSection("#projects")}
-            className="group relative inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full overflow-hidden"
+            className="group relative inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -97,7 +97,7 @@ export default function Hero() {
 
           <motion.button
             onClick={() => scrollToSection("#contact")}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-line text-main font-semibold rounded-full hover:border-accent hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-line text-main font-semibold rounded-full hover:border-accent hover:text-accent transition-colors cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
