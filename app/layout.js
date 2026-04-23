@@ -17,11 +17,7 @@ export const metadata = {
   keywords: ["Frontend Engineer", "React", "Next.js", "Web Development", "UI/UX", "Saran Baral"],
   author: "Saran Baral",
   icons: {
-    icon: "/favicon.ico",
-    icon32: "/favicon-32.png",
-    icon16: "/favicon-16.png",
-    apple: "/apple-touch-icon.png",
-    appleSquarified: "/apple-touch-icon.png",
+    icon: "/favicon.svg",
   },
   openGraph: {
     title: "Saran Baral | Frontend Engineer",
