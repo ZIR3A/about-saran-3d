@@ -3,80 +3,54 @@
 
 import { Suspense, useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, Sparkles, MeshDistortMaterial, Environment } from "@react-three/drei";
+import { Float, Sparkles, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
 function FloatingModel() {
   const meshRef = useRef();
-  const ring1Ref = useRef();
-  const ring2Ref = useRef();
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / docHeight, 1);
-      setScrollProgress(progress);
-    };
-
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useFrame((state) => {
     const time = state.clock.elapsedTime;
+    const scrollProgress = scrollY * 0.002;
     
     if (meshRef.current) {
-      meshRef.current.rotation.x = time * 0.5;
-      meshRef.current.rotation.y = time * 0.3;
+      meshRef.current.rotation.x = time * 0.15 + scrollProgress;
+      meshRef.current.rotation.y = time * 0.1 + scrollProgress * 0.5;
       
-      meshRef.current.distort = 0.4 + Math.sin(time * 0.5) * 0.15;
-      
-      const baseScale = 1 + scrollProgress * 0.15;
-      meshRef.current.scale.setScalar(baseScale);
-    }
-    
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.z = -time * 2;
-    }
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.z = time * 1.5;
+      const scale = hovered ? 1.1 : 1;
+      meshRef.current.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.05);
     }
   });
 
   return (
     <Float
-      speed={1.5}
-      rotationIntensity={0.5}
-      floatIntensity={0.8}
-      floatingRange={[-0.2, 0.2]}
+      speed={0.8}
+      rotationIntensity={0.2}
+      floatIntensity={0.4}
+      floatingRange={[-0.1, 0.1]}
     >
-      <group>
-        <mesh ref={meshRef}>
-          <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-          <MeshDistortMaterial
-            color="#E50914"
-            envMapIntensity={1}
-            clearcoat={1}
-            clearcoatRoughness={0}
-            metalness={0.9}
-            roughness={0.1}
-            distort={0.4}
-            speed={3}
-          />
-        </mesh>
-
-        <mesh ref={ring1Ref} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[2.5, 0.02, 16, 100]} />
-          <meshBasicMaterial color="#E50914" transparent opacity={0.6} />
-        </mesh>
-
-        <mesh ref={ring2Ref} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[2.5, 0.01, 16, 100]} />
-          <meshBasicMaterial color="#E50914" transparent opacity={0.3} />
-        </mesh>
-      </group>
+      <mesh 
+        ref={meshRef}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        <icosahedronGeometry args={[1.2, 1]} />
+        <meshStandardMaterial
+          color="#E50914"
+          envMapIntensity={0.8}
+          metalness={0.7}
+          roughness={0.2}
+          flatShading
+        />
+      </mesh>
     </Float>
   );
 }
@@ -128,34 +102,14 @@ function Particles({ count = 200 }) {
   );
 }
 
-function CameraController() {
+function Camera() {
   const { camera } = useThree();
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const progress = Math.min(scrollTop / docHeight, 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useFrame(() => {
-    const baseZ = 5;
-    const minZ = 4;
-    const targetZ = baseZ - scrollProgress * (baseZ - minZ);
-    
-    const baseY = 0;
-    const maxY = 0.5;
-    const targetY = baseY + scrollProgress * maxY;
-    
-    const lerp = (start, end, t) => start + (end - start) * t;
-    camera.position.z = lerp(camera.position.z, targetZ, 0.05);
-    camera.position.y = lerp(camera.position.y, targetY, 0.05);
+  useFrame((state) => {
+    const time = state.clock.elapsedTime;
+    camera.position.x = Math.sin(time * 0.1) * 2;
+    camera.position.y = Math.cos(time * 0.1) * 1;
+    camera.lookAt(0, 0, 0);
   });
 
   return null;
@@ -164,29 +118,22 @@ function CameraController() {
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <directionalLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
-      <pointLight position={[-5, -5, -5]} intensity={0.5} color="#E50914" />
-      <spotLight
-        position={[0, 10, 0]}
-        angle={0.3}
-        penumbra={1}
-        intensity={0.5}
-        color="#E50914"
-      />
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 5, 5]} intensity={0.3} color="#ffffff" />
+      <pointLight position={[-5, -5, -5]} intensity={0.3} color="#E50914" />
 
-      <CameraController />
+      <Camera />
       <FloatingModel />
-      <Particles count={300} />
+      <Particles count={150} />
 
       <Sparkles
-        count={100}
-        scale={12}
-        size={2}
-        speed={0.4}
-        opacity={0.2}
+        count={50}
+        scale={10}
+        size={1.5}
+        speed={0.3}
+        opacity={0.15}
         color="#E50914"
-        noise={0.5}
+        noise={0.3}
       />
 
       <Environment preset="night" />
@@ -205,7 +152,7 @@ function LoadingFallback() {
 
 export default function Scene3D() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed right-0 top-0 w-full md:w-1/2 h-screen z-0 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
         gl={{
