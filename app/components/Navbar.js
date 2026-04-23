@@ -90,7 +90,7 @@ export default function Navbar() {
             </div>
 
             <motion.button
-              className="md:hidden p-2 text-main"
+              className="md:hidden p-2 text-main cursor-pointer"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
