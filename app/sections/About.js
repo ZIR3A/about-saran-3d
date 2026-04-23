@@ -75,7 +75,7 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <h3 className="text-xl font-semibold text-main mb-4">My Approach</h3>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-4 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
               <span className="text-muted">Clean architecture</span>
@@ -87,6 +87,10 @@ export default function About() {
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
               <span className="text-muted">Modern tech stack</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-muted">Best User Experience</span>
             </div>
           </div>
         </motion.div>
