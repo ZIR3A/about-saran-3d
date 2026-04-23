@@ -13,19 +13,26 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Saran Baral | Frontend Engineer",
-  description: "Frontend Engineer crafting high-performance web experiences. Building scalable, modern web platforms with focus on UX.",
+  description: "Frontend Engineer building fast, intuitive web experiences.",
   keywords: ["Frontend Engineer", "React", "Next.js", "Web Development", "UI/UX", "Saran Baral"],
   author: "Saran Baral",
+  icons: {
+    icon: "/favicon.ico",
+    icon32: "/favicon-32.png",
+    icon16: "/favicon-16.png",
+    apple: "/apple-touch-icon.png",
+    appleSquarified: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Saran Baral | Frontend Engineer",
-    description: "Frontend Engineer crafting high-performance web experiences",
+    description: "Frontend Engineer building fast, intuitive web experiences",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Saran Baral | Frontend Engineer",
-    description: "Frontend Engineer crafting high-performance web experiences",
+    description: "Frontend Engineer building fast, intuitive web experiences",
   },
   robots: {
     index: true,
