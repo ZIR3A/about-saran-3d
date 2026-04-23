@@ -65,7 +65,7 @@ export default function Skills() {
           {skillCategories.map((cat, catIndex) => (
             <motion.div
               key={cat.category}
-              className="group p-6 rounded-2xl bg-base border border-line hover:border-accent/50 transition-colors"
+              className="group p-6 glass-card hover:border-accent/50 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -126,7 +126,7 @@ export default function Skills() {
           {["TypeScript", "Node.js", "PostgreSQL", "AWS", "Docker"].map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1.5 text-sm text-muted bg-base border border-line rounded-full hover:border-accent/50 transition-colors"
+              className="px-3 py-1.5 text-sm text-muted glass-card hover:border-accent/50 transition-colors cursor-pointer"
             >
               {tech}
             </span>

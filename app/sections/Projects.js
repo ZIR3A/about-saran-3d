@@ -130,7 +130,7 @@ export default function Projects() {
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 text-xs text-muted bg-base border border-line rounded"
+                      className="px-2 py-1 text-xs text-muted glass-card"
                     >
                       {tech}
                     </span>

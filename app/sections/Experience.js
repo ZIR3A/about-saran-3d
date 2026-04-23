@@ -65,7 +65,7 @@ export default function Experience() {
               <motion.div key={exp.title + exp.period} className="relative flex items-start gap-6 md:gap-8" initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: index * 0.1 }}>
                 <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-accent md:-translate-x-px -translate-y-1" />
                 <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:ml-auto md:pl-12"}`}>
-                  <div className="p-6 rounded-2xl bg-base border border-line hover:border-accent/50 transition-colors">
+                  <div className="p-6 glass-card hover:border-accent/50 transition-colors">
                     <span className="text-xs text-accent font-medium block mb-2">{exp.period}</span>
                     <h3 className="text-lg font-semibold text-main mb-1">{exp.title}</h3>
                     <p className="text-muted text-sm mb-2">{exp.company}</p>
@@ -79,7 +79,7 @@ export default function Experience() {
 
         <motion.div className="mt-16 grid sm:grid-cols-3 gap-6" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.3 }}>
           {milestones.map((milestone, index) => (
-            <div key={milestone.title} className="p-6 rounded-2xl bg-base border border-line text-center">
+            <div key={milestone.title} className="p-6 glass-card text-center">
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent-soft flex items-center justify-center">
                 <milestone.icon className="text-accent" size={24} />
               </div>
