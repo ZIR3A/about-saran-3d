@@ -103,7 +103,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.article
               key={project.name}
-              className="group relative p-6 rounded-2xl bg-surface border border-line hover:border-accent/50 transition-colors overflow-hidden"
+              className="group relative p-6 glass-card hover:border-accent/50 transition-colors overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}

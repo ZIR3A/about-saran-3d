@@ -52,7 +52,7 @@ export default function About() {
           {highlights.map((item, index) => (
             <motion.div
               key={item.title}
-              className="group p-6 rounded-2xl bg-surface border border-line hover:border-accent/50 transition-colors"
+              className="group p-6 glass-card hover:border-accent/50 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -68,7 +68,7 @@ export default function About() {
         </div>
 
         <motion.div
-          className="mt-12 p-6 rounded-2xl bg-surface border border-line"
+          className="mt-12 p-6 glass-card"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}

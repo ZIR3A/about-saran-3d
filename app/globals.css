@@ -20,6 +20,8 @@
   --accent: #E50914;
   --accent-soft: rgba(229, 9, 20, 0.2);
   --border: #1F1F1F;
+  --glass-bg: rgba(17, 17, 17, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 html {
@@ -59,4 +61,12 @@ body {
 
 img {
   transition: opacity 0.3s ease-in-out;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
 }

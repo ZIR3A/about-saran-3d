@@ -78,7 +78,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <motion.div className="mt-8 p-6 rounded-2xl bg-surface border border-line" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+            <motion.div className="mt-8 p-6 glass-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               <h3 className="text-lg font-semibold text-main mb-2">Availability</h3>
               <p className="text-muted text-sm mb-3">Currently available for freelance projects and full-time positions.</p>
               <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ export default function Contact() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 p-6 glass-card">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-muted mb-2">Name</label>
                 <input type="text" id="name" name="name" value={formState.name} onChange={handleChange} required className="w-full px-4 py-3 bg-surface border border-line rounded-xl text-main placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors" placeholder="Your name" />
