@@ -32,7 +32,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-main tracking-tight mb-6"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-7xl font-bold text-main tracking-tight mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -55,9 +55,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Frontend Engineer crafting{" "}
-          <span className="text-main">high-performance web experiences</span> with
-          focus on user experience and modern architecture.
+          Frontend Engineer building{" "}
+          <span className="text-main">fast, intuitive web experiences</span>.
         </motion.p>
 
         <motion.p
@@ -66,9 +65,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Building scalable, modern web platforms from concept to deployment.
-          Specializing in React, Next.js, and creating intuitive user interfaces
-          that deliver exceptional performance.
+          4+ years crafting modern web apps with React & Next.js.
         </motion.p>
 
         <motion.div
@@ -114,7 +111,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
-          <span className="text-muted text-xs sm:text-sm tracking-widest uppercase">Scroll</span>
+          <span className="text-muted text-xs sm:text-sm tracking-widest uppercase">Scroll down</span>
           <motion.div
             className="w-6 sm:w-8 h-10 sm:h-14 rounded-full border-2 border-line flex items-start justify-center p-1 sm:p-2"
             animate={{ y: [0, 8, 0] }}

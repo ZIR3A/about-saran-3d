@@ -6,21 +6,21 @@ import { Code2, Layout, Zap } from "lucide-react";
 const highlights = [
   {
     icon: Code2,
-    title: "Frontend Development",
+    title: "Frontend",
     description:
-      "Building performant, scalable applications with React, Next.js, and modern JavaScript. Optimizing for speed and user experience.",
+      "Building fast, scalable apps with React & Next.js.",
   },
   {
     icon: Layout,
-    title: "UI/UX Design",
+    title: "UI/UX",
     description:
-      "Creating intuitive, accessible interfaces that users love. Focusing on clean design systems and seamless interactions.",
+      "Creating clean interfaces users love.",
   },
   {
     icon: Zap,
     title: "Performance",
     description:
-      "Optimizing every millisecond. From bundle size to runtime performance, ensuring lightning-fast experiences.",
+      "Optimizing every millisecond.",
   },
 ];
 
@@ -36,15 +36,13 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <span className="text-accent text-sm font-semibold tracking-wider uppercase mb-4 block">
-            About Me
+            About
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">
-            Crafting digital experiences that matter
+            Building things that work
           </h2>
           <p className="text-lg text-muted max-w-2xl">
-            I&apos;m a Frontend Engineer with over 4+ years of experience building
-            web applications. I specialize in creating clean, efficient, and
-            user-centered digital products that solve real problems.
+            Frontend Engineer with 4+ years creating web apps that are fast, accessible, and clean.
           </p>
         </motion.div>
 
@@ -52,7 +50,7 @@ export default function About() {
           {highlights.map((item, index) => (
             <motion.div
               key={item.title}
-              className="group p-6 rounded-2xl bg-surface border border-line hover:border-accent/50 transition-colors"
+              className="group p-6 glass-card hover:border-accent/50 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -68,29 +66,29 @@ export default function About() {
         </div>
 
         <motion.div
-          className="mt-12 p-6 rounded-2xl bg-surface border border-line"
+          className="mt-12 p-6 glass-card"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-xl font-semibold text-main mb-4">My Approach</h3>
+          <h3 className="text-xl font-semibold text-main mb-4">How I work</h3>
           <div className="grid sm:grid-cols-4 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
-              <span className="text-muted">Clean architecture</span>
+              <span className="text-muted">Clean code</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
-              <span className="text-muted">User-first design</span>
+              <span className="text-muted">User-centered</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
-              <span className="text-muted">Modern tech stack</span>
+              <span className="text-muted">Modern stack</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-accent" />
-              <span className="text-muted">Best User Experience</span>
+              <span className="text-muted">Fast performance</span>
             </div>
           </div>
         </motion.div>
