@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react-hooks/immutability */
 
 import { Suspense, useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -73,10 +74,14 @@ function FloatingModel() {
 function Particles({ count = 500 }) {
   const particles = useMemo(() => {
     const positions = new Float32Array(count * 3);
+    const seededRandom = (i) => {
+      const x = Math.sin(i * 9999) * 10000;
+      return x - Math.floor(x);
+    };
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      positions[i * 3] = (seededRandom(i) - 0.5) * 20;
+      positions[i * 3 + 1] = (seededRandom(i + count) - 0.5) * 20;
+      positions[i * 3 + 2] = (seededRandom(i + count * 2) - 0.5) * 20;
     }
     return positions;
   }, [count]);
@@ -128,7 +133,7 @@ function CameraController() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     const baseZ = 5;
     const minZ = 2.5;
     const targetZ = baseZ - scrollProgress * (baseZ - minZ);
@@ -137,8 +142,9 @@ function CameraController() {
     const maxY = 1.5;
     const targetY = baseY + scrollProgress * maxY;
     
-    camera.position.z += (targetZ - camera.position.z) * 0.05;
-    camera.position.y += (targetY - camera.position.y) * 0.05;
+    const lerp = (start, end, t) => start + (end - start) * t;
+    camera.position.z = lerp(camera.position.z, targetZ, 0.05);
+    camera.position.y = lerp(camera.position.y, targetY, 0.05);
   });
 
   return null;

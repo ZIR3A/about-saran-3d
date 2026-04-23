@@ -20,7 +20,7 @@ const skillCategories = [
     icon: Wrench,
     skills: [
       { name: "Git", level: 85 },
-      { name: "Figma", level: 80 },
+      { name: "Figma", level: 20 },
       { name: "VS Code", level: 95 },
       { name: "Chrome DevTools", level: 90 },
       { name: "npm/yarn", level: 90 },
