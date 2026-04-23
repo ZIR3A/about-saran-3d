@@ -34,8 +34,8 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto">
         <motion.div className="mb-16 text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}>
           <span className="text-accent text-sm font-semibold tracking-wider uppercase mb-4 block">Contact</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">Let&apos;s build something great</h2>
-          <p className="text-lg text-muted max-w-xl mx-auto">Have an idea or project? I&apos;d love to hear about it. Let&apos;s create something amazing together.</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">Let&apos;s work together</h2>
+          <p className="text-lg text-muted max-w-xl mx-auto">Got a project in mind? Let&apos;s talk.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 md:gap-20">
@@ -80,10 +80,10 @@ export default function Contact() {
 
             <motion.div className="mt-8 p-6 glass-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               <h3 className="text-lg font-semibold text-main mb-2">Availability</h3>
-              <p className="text-muted text-sm mb-3">Currently available for freelance projects and full-time positions.</p>
+              <p className="text-muted text-sm mb-3">Open to freelance and full-time work.</p>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm text-muted">Ready to discuss your project</span>
+                <span className="text-sm text-muted">Let&apos;s chat</span>
               </div>
             </motion.div>
           </motion.div>

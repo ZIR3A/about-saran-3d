@@ -30,7 +30,7 @@ export default function Footer() {
               SB<span className="text-accent">.</span>
             </span>
             <p className="text-sm text-muted">
-              Frontend Engineer | Building high-performance web experiences
+              Frontend Engineer | Building fast web apps
             </p>
           </motion.div>
 

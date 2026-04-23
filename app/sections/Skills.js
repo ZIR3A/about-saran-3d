@@ -54,10 +54,10 @@ export default function Skills() {
             Skills
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">
-            Technologies I work with
+            What I work with
           </h2>
           <p className="text-lg text-muted max-w-2xl">
-            A curated set of tools and technologies I use to bring ideas to life.
+            Tools I use to build great web experiences.
           </p>
         </motion.div>
 
