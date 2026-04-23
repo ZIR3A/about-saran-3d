@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
+import LoadingScreen from "./components/LoadingScreen";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Skills from "./sections/Skills";
@@ -59,6 +60,7 @@ const Scene3D = dynamic(() => import("./components/Scene3D"), {
 export default function Home() {
   return (
     <SmoothScroll>
+      <LoadingScreen />
       <div className="relative min-h-screen">
         <Scene3D />
         <Navbar />
