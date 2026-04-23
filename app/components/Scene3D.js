@@ -33,7 +33,7 @@ function FloatingModel() {
       
       meshRef.current.distort = 0.4 + Math.sin(time * 0.5) * 0.15;
       
-      const baseScale = 1 + scrollProgress * 0.5;
+      const baseScale = 1 + scrollProgress * 0.15;
       meshRef.current.scale.setScalar(baseScale);
     }
     
@@ -146,11 +146,11 @@ function CameraController() {
 
   useFrame(() => {
     const baseZ = 5;
-    const minZ = 2.5;
+    const minZ = 4;
     const targetZ = baseZ - scrollProgress * (baseZ - minZ);
     
     const baseY = 0;
-    const maxY = 1.5;
+    const maxY = 0.5;
     const targetY = baseY + scrollProgress * maxY;
     
     const lerp = (start, end, t) => start + (end - start) * t;
