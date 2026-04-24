@@ -26,8 +26,8 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-xl font-bold text-main tracking-tight">
-              SB<span className="text-accent">.</span>
+            <span className="text-xl font-bold tracking-tight">
+              <span className="text-main">SB</span><span className="gradient-text">.</span>
             </span>
             <p className="text-sm text-muted">
               Frontend Engineer | Building fast web apps

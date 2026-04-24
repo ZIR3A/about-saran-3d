@@ -59,14 +59,14 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <motion.a
               href="#"
-              className="text-xl md:text-2xl font-bold text-main tracking-tight"
+              className="text-xl md:text-2xl font-bold tracking-tight"
               whileHover={{ scale: 1.02 }}
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              SB<span className="text-accent">.</span>
+              <span className="text-main">SB</span><span className="gradient-text">.</span>
             </motion.a>
 
             <div className="hidden md:flex items-center gap-8">

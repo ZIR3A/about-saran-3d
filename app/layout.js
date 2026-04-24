@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen flex flex-col bg-base text-main antialiased" suppressHydrationWarning>
+        <div className="scanlines" />
         {children}
       </body>
     </html>
