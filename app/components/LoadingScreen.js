@@ -3,47 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Environment } from "@react-three/drei";
+import { SharedModel } from "./Shared3DModel";
 import * as THREE from "three";
 
 function LoadingSpinner() {
-  const meshRef = useRef();
-  const ringRef = useRef();
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
-    if (ringRef.current) {
-      ringRef.current.rotation.z = -state.clock.elapsedTime * 2;
-    }
-  });
-
   return (
     <group>
-      <mesh ref={meshRef}>
-        <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-        <MeshDistortMaterial
-          color="#E50914"
-          envMapIntensity={1}
-          clearcoat={1}
-          clearcoatRoughness={0}
-          metalness={0.9}
-          roughness={0.1}
-          distort={0.4}
-          speed={3}
-        />
-      </mesh>
-
-      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[2.5, 0.02, 16, 100]} />
-        <meshBasicMaterial color="#E50914" transparent opacity={0.6} />
-      </mesh>
-
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[2.5, 0.01, 16, 100]} />
-        <meshBasicMaterial color="#E50914" transparent opacity={0.3} />
-      </mesh>
+      <SharedModel scale={1} />
     </group>
   );
 }

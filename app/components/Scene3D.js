@@ -4,11 +4,10 @@
 import { Suspense, useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, Sparkles, Environment } from "@react-three/drei";
+import { SharedModel } from "./Shared3DModel";
 import * as THREE from "three";
 
 function FloatingModel() {
-  const meshRef = useRef();
-  const [hovered, setHovered] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -17,19 +16,6 @@ function FloatingModel() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useFrame((state) => {
-    const time = state.clock.elapsedTime;
-    const scrollProgress = scrollY * 0.002;
-    
-    if (meshRef.current) {
-      meshRef.current.rotation.x = time * 0.15 + scrollProgress;
-      meshRef.current.rotation.y = time * 0.1 + scrollProgress * 0.5;
-      
-      const scale = hovered ? 1.1 : 1;
-      meshRef.current.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.05);
-    }
-  });
-
   return (
     <Float
       speed={0.8}
@@ -37,20 +23,7 @@ function FloatingModel() {
       floatIntensity={0.4}
       floatingRange={[-0.1, 0.1]}
     >
-      <mesh 
-        ref={meshRef}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
-        <icosahedronGeometry args={[1.2, 1]} />
-        <meshStandardMaterial
-          color="#E50914"
-          envMapIntensity={0.8}
-          metalness={0.7}
-          roughness={0.2}
-          flatShading
-        />
-      </mesh>
+      <SharedModel scale={1.2} scrollY={scrollY} isInteractive={true} />
     </Float>
   );
 }

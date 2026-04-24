@@ -74,7 +74,6 @@ export default function Footer() {
           transition={{ delay: 0.3 }}
         >
           <p>&copy; {new Date().getFullYear()} Saran Baral. All rights reserved.</p>
-          <p className="text-xs">Designed & Built with modern web technologies</p>
         </motion.div>
       </div>
     </footer>

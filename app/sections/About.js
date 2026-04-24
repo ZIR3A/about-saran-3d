@@ -42,7 +42,7 @@ export default function About() {
             Building things that work
           </h2>
           <p className="text-lg text-muted max-w-2xl">
-            Frontend Engineer with 4+ years creating web apps that are fast, accessible, and clean.
+            4+ years building fast, accessible web apps.
           </p>
         </motion.div>
 

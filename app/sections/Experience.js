@@ -9,42 +9,42 @@ const experiences = [
     title: "Frontend Developer | Intern",
     company: "Aarambha IT Research Center",
     period: "Mar 2021 to Apr 2021",
-    description: "s an intern Frontend Developer, I specialize in building responsive food order system dashboard page using HTML, CSS and JavaScript. I have successfully delivered projects such as the food order system dashboard page.",
+    description: "Built a responsive food order system dashboard using HTML, CSS, and JavaScript.",
   },
   {
     type: "work",
     title: "Fullstack Developer | JavaScript",
     company: "Suryaghat Organization",
     period: "Apr 2021 to Sep 2021",
-    description: "As a Full Stack JavaScript Developer, I have built and delivered robust web applications, including an E-Library Platform, using React.js for dynamic frontend interfaces, custom CSS for responsive designs, and Express.js for backend development. I designed and managed SQL databases to ensure efficient data storage and retrieval.",
+    description: "Developed an E-Library Platform with React.js and Express.js, designed SQL databases.",
   },
   {
     type: "learning",
     title: "Frontend Developer (React JS)",
     company: "DCube Solutions Pvt. Ltd",
     period: "Sep 2021 to Dec 2021",
-    description: "As a React Developer, I successfully revamped an Angular-based CRM portal into a modern, high-performance application using React, Material-UI for styling, and TypeScript for type-safe development. My role involved migrating complex features, optimizing the user interface for better usability, and ensuring seamless integration with existing backend systems.",
+    description: "Migrated Angular CRM portal to React with Material-UI and TypeScript.",
   },
   {
     type: "learning",
     title: "Full Stack Engineer (Next.js)",
     company: "Kush Tech Nepal",
     period: "Oct 2025 to Present",
-    description: "As an expert Next.js Developer, I architect, build, and maintain advanced full stack web applications for both frontend and backend. My proficiency with Next.js allows me to deliver high-performance, SEO-optimized, and scalable solutions. I leverage server-side rendering, API routes, authentication integration, and state management to create robust user and admin dashboards. My projects include IPTV Subscriber, Admin, and Reseller Portals, Ticketing Systems, and Support Platforms. I ensure optimized performance, clean code, and seamless end-to-end user experiences across the stack.",
+    description: "Building full-stack web apps with SSR, API routes, auth, and state management.",
   },
   {
     type: "learning",
     title: "Software Engineer",
     company: "Genius Systems Pvt. Ltd.",
     period: "Feb 2022 to Present",
-    description: "As a Frontend React Developer, I specialize in building dynamic, user-friendly web applications. I have successfully delivered projects such as the IPTV Subscriber Portal, IPTV Admin Portal, IPTV Reseller Portal, IPTV Ticketing System, and IPTV Support System. Optimizing performance, and ensuring seamless user experiences.",
+    description: "Delivered IPTV portals, ticketing systems, and support platforms.",
   },
 ];
 
 const milestones = [
-  { icon: Briefcase, title: "20+ Projects Completed", description: "Built over 50 web applications for various clients and personal projects" },
-  { icon: Award, title: "4+ Years Experience", description: "Professional experience in frontend development" },
-  { icon: GraduationCap, title: "Continuous Learning", description: "Always staying updated with the latest web technologies" },
+  { icon: Briefcase, title: "20+ Projects", description: "Built web apps for various clients" },
+  { icon: Award, title: "4+ Years Exp", description: "Professional frontend development" },
+  { icon: GraduationCap, title: "Always Learning", description: "Staying updated with web tech" },
 ];
 
 export default function Experience() {
