@@ -91,7 +91,7 @@ export default function Projects() {
             Projects
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">
-            Selected work
+            Personal work
           </h2>
           <p className="text-lg text-muted max-w-2xl">
             Projects I&apos;ve built, each with its own solution.
