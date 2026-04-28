@@ -11,7 +11,7 @@ const projects = [
     tech: ["GSAP"],
     highlight: "Performance",
     year: "2024",
-    live: "https://saranbaral.com.np/",
+    live: "https://about-saran.vercel.app/",
     github: null,
   },
 {
