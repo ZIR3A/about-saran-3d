@@ -66,7 +66,7 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              <span className="text-main">SB</span><span className="gradient-text">.</span>
+              <span className="text-main">SB</span><span className="text-accent">.</span>
             </motion.a>
 
             <div className="hidden md:flex items-center gap-8">

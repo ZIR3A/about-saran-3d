@@ -30,6 +30,7 @@ const skillCategories = [
     category: "Concepts",
     icon: Lightbulb,
     skills: [
+      { name: "AI/LLM Engineering", level: 75 },
       { name: "Performance Optimization", level: 85 },
       { name: "UI/UX Principles", level: 90 },
       { name: "Responsive Design", level: 95 },
@@ -123,7 +124,7 @@ export default function Skills() {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <span className="text-muted text-sm self-center mr-2">Also familiar with:</span>
-          {["TypeScript", "Node.js", "PostgreSQL", "AWS", "Docker"].map((tech) => (
+          {["TypeScript", "Node.js", "PostgreSQL", "Docker"].map((tech) => (
             <span
               key={tech}
               className="px-3 py-1.5 text-sm text-muted glass-card hover:border-accent/50 transition-colors cursor-pointer"

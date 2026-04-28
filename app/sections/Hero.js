@@ -38,14 +38,8 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           Hi, I&apos;m{" "}
-          <span className="gradient-text relative">
+          <span className="text-accent">
             Saran Baral
-            <motion.span
-              className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent via-cyan-400 to-violet-500"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            />
           </span>
         </motion.h1>
 

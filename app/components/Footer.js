@@ -27,7 +27,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <span className="text-xl font-bold tracking-tight">
-              <span className="text-main">SB</span><span className="gradient-text">.</span>
+              <span className="text-main">SB</span><span className="text-accent">.</span>
             </span>
             <p className="text-sm text-muted">
               Frontend Engineer | Building fast web apps

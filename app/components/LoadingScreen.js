@@ -105,7 +105,7 @@ export default function LoadingScreen() {
       <div className="relative z-10 flex flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-4xl font-bold tracking-wider font-mono">
-            <span className="gradient-text">LOADING</span>
+            <span>LOADING</span>
           </h1>
           <div className="flex gap-1">
             {[...Array(3)].map((_, i) => (
