@@ -39,10 +39,15 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+.font-mono,
+.section-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 ::selection {
@@ -82,17 +87,59 @@ img {
 
 .glass-card:hover {
   border-color: rgba(229, 9, 20, 0.5);
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.15);
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.12);
+}
+
+.section-divider {
+  position: relative;
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 2rem, 72rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.content-scrim > section:not(#hero) {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .content-scrim > section:not(#hero)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--bg-primary) 0%, rgba(10, 10, 10, 0.92) 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.safe-area-pb {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
 
 .scanlines {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 5;
   background: repeating-linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0px,
@@ -100,7 +147,22 @@ img {
     rgba(0, 0, 0, 0.03) 1px,
     rgba(0, 0, 0, 0.03) 2px
   );
-  opacity: 0.3;
+  opacity: 0.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scanlines {
+    display: none;
+  }
 }
 
 @keyframes pulse-glow {

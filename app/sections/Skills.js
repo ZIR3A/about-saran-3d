@@ -1,138 +1,64 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Wrench, Lightbulb } from "lucide-react";
+import { Code2, Layers, Lightbulb, Wrench } from "lucide-react";
+import SectionHeader from "../components/ui/SectionHeader";
+import { skillCategories, skillsFamiliarWith } from "@/lib/portfolio-data";
 
-const skillCategories = [
-  {
-    category: "Frontend",
-    icon: Code2,
-    skills: [
-      { name: "React", level: 95 },
-      { name: "Next.js", level: 90 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "JavaScript", level: 90 },
-      { name: "HTML/CSS", level: 95 },
-    ],
-  },
-  {
-    category: "Tools",
-    icon: Wrench,
-    skills: [
-      { name: "Git", level: 85 },
-      { name: "Figma", level: 20 },
-      { name: "VS Code", level: 95 },
-      { name: "Chrome DevTools", level: 90 },
-      { name: "npm/yarn", level: 90 },
-    ],
-  },
-  {
-    category: "Concepts",
-    icon: Lightbulb,
-    skills: [
-      { name: "AI/LLM Engineering", level: 75 },
-      { name: "Performance Optimization", level: 85 },
-      { name: "UI/UX Principles", level: 90 },
-      { name: "Responsive Design", level: 95 },
-      { name: "Web Accessibility", level: 85 },
-      { name: "Clean Code", level: 90 },
-    ],
-  },
-];
+const icons = [Code2, Layers, Lightbulb, Wrench];
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-20 md:py-32 px-4">
+    <section id="skills" className="relative py-20 md:py-28 px-4 section-divider">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="text-accent text-sm font-semibold tracking-wider uppercase mb-4 block">
-            Skills
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-main mb-6">
-            What I work with
-          </h2>
-          <p className="text-lg text-muted max-w-2xl">
-            Tools I use to build great web experiences.
-          </p>
-        </motion.div>
+        <SectionHeader
+          label="Skills"
+          title="What I work with"
+          description="Tools I use to build great web experiences."
+        />
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {skillCategories.map((cat, catIndex) => (
-            <motion.div
-              key={cat.category}
-              className="group p-6 glass-card hover:border-accent/50 transition-colors"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center group-hover:bg-accent transition-colors">
-                  <cat.icon className="text-accent group-hover:text-white" size={20} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {skillCategories.map((cat, catIndex) => {
+            const Icon = icons[catIndex];
+            return (
+              <motion.div
+                key={cat.category}
+                className="glass-card p-6 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: catIndex * 0.08 }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center group-hover:bg-accent transition-colors">
+                    <Icon className="text-accent group-hover:text-white transition-colors" size={20} />
+                  </div>
+                  <h3 className="text-[1rem] font-semibold text-main leading-tight">{cat.category}</h3>
                 </div>
-                <h3 className="text-xl font-semibold text-main">{cat.category}</h3>
-              </div>
-
-              <div className="space-y-4">
-                {cat.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skill.name}
-                    className="space-y-2"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.4,
-                      delay: catIndex * 0.1 + skillIndex * 0.05,
-                    }}
-                  >
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted">{skill.name}</span>
-                      <span className="text-muted/60">{skill.level}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-line overflow-hidden">
-                      <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-accent to-accent/60"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.8,
-                          delay: catIndex * 0.1 + skillIndex * 0.05,
-                          ease: "easeOut",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                <ul className="space-y-2">
+                  {cat.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="flex items-center gap-2 text-sm text-muted"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-accent shrink-0" />
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            );
+          })}
         </div>
 
-        <motion.div
-          className="mt-12 flex flex-wrap gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <motion.p
+          className="mt-10 text-center text-sm text-muted"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <span className="text-muted text-sm self-center mr-2">Also familiar with:</span>
-          {["TypeScript", "Node.js", "PostgreSQL", "Docker"].map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1.5 text-sm text-muted glass-card hover:border-accent/50 transition-colors cursor-pointer"
-            >
-              {tech}
-            </span>
-          ))}
-        </motion.div>
+          Also familiar with: {skillsFamiliarWith}
+        </motion.p>
       </div>
     </section>
   );

@@ -1,121 +1,80 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshDistortMaterial, Environment } from "@react-three/drei";
-import { SharedModel } from "./Shared3DModel";
-import * as THREE from "three";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
-function LoadingSpinner() {
-  return (
-    <group>
-      <SharedModel scale={1} />
-    </group>
-  );
-}
+const LOADING_KEY = "portfolio-loaded";
+const LOADING_DURATION = 1800;
 
-function Particles() {
-  const count = 100;
-  const particles = new Float32Array(count * 3);
-
-  const seededRandom = (i) => {
-    const x = Math.sin(i * 9999) * 10000;
-    return x - Math.floor(x);
-  };
-
-  for (let i = 0; i < count; i++) {
-    const angle = (i / count) * Math.PI * 2;
-    const radius = 3 + seededRandom(i) * 0.5;
-    particles[i * 3] = Math.cos(angle) * radius;
-    particles[i * 3 + 1] = (seededRandom(i + count) - 0.5) * 2;
-    particles[i * 3 + 2] = Math.sin(angle) * radius;
-  }
-
-  const pointsRef = useRef();
-
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.5;
-    }
-  });
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={count}
-          array={particles}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.05}
-        color="#E50914"
-        transparent
-        opacity={0.8}
-        sizeAttenuation
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
-  );
-}
+const LoadingCanvas = dynamic(
+  () => import("./LoadingCanvas"),
+  { ssr: false, loading: () => null }
+);
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const duration = 5000;
-    const interval = 50;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    if (sessionStorage.getItem(LOADING_KEY)) {
+      setIsLoading(false);
+      return;
+    }
+
+    const duration = reducedMotion ? 400 : LOADING_DURATION;
+    const interval = 40;
     const steps = duration / interval;
     let currentStep = 0;
 
     const timer = setInterval(() => {
       currentStep++;
-      const newProgress = Math.min((currentStep / steps) * 100, 100);
-      setProgress(newProgress);
+      setProgress(Math.min((currentStep / steps) * 100, 100));
 
       if (currentStep >= steps) {
         clearInterval(timer);
-        setTimeout(() => setIsLoading(false), 300);
+        sessionStorage.setItem(LOADING_KEY, "1");
+        setTimeout(() => setIsLoading(false), reducedMotion ? 0 : 200);
       }
     }, interval);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [mounted, reducedMotion]);
 
-  if (!isLoading) return null;
+  if (!mounted || !isLoading) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-base">
-      <div className="absolute inset-0">
-        <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
-          <pointLight position={[-5, -5, -5]} intensity={0.5} color="#E50914" />
-
-          <LoadingSpinner />
-          <Particles />
-
-          <Environment preset="night" />
-        </Canvas>
-      </div>
+      {!reducedMotion && (
+        <div className="absolute inset-0">
+          <LoadingCanvas />
+        </div>
+      )}
 
       <div className="relative z-10 flex flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-4xl font-bold tracking-wider font-mono">
             <span>LOADING</span>
           </h1>
-          <div className="flex gap-1">
-            {[...Array(3)].map((_, i) => (
-              <span
-                key={i}
-                className="w-2 h-2 rounded-full bg-accent animate-pulse"
-                style={{ animationDelay: `${i * 0.15}s` }}
-              />
-            ))}
-          </div>
+          {!reducedMotion && (
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <span
+                  key={i}
+                  className="w-2 h-2 rounded-full bg-accent animate-pulse"
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="w-64 h-1 bg-surface rounded-full overflow-hidden">

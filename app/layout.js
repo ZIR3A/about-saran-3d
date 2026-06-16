@@ -14,22 +14,27 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Saran Baral | Frontend Engineer",
-  description: "Frontend Engineer building fast, intuitive web experiences.",
-  keywords: ["Frontend Engineer", "React", "Next.js", "Web Development", "UI/UX", "Saran Baral"],
+  description:
+    "Results-driven Frontend Engineer with 4+ years of experience building modern web applications with React.js, Next.js, and TypeScript.",
+  keywords: ["Frontend Engineer", "React", "Next.js", "TypeScript", "Web Development", "UI/UX", "Saran Baral"],
   author: "Saran Baral",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     title: "Saran Baral | Frontend Engineer",
-    description: "Frontend Engineer building fast, intuitive web experiences",
+    description:
+      "Results-driven Frontend Engineer with 4+ years of experience building modern web applications with React.js, Next.js, and TypeScript.",
     type: "website",
     locale: "en_US",
+    siteName: "Saran Baral Portfolio",
   },
+  metadataBase: new URL("https://www.saranbaral.com.np"),
   twitter: {
     card: "summary_large_image",
     title: "Saran Baral | Frontend Engineer",
-    description: "Frontend Engineer building fast, intuitive web experiences",
+    description:
+      "Results-driven Frontend Engineer with 4+ years of experience building modern web applications with React.js, Next.js, and TypeScript.",
   },
   robots: {
     index: true,
@@ -40,8 +45,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen flex flex-col bg-base text-main antialiased" suppressHydrationWarning>
-        <div className="scanlines" />
+      <body className="min-h-screen flex flex-col bg-base text-main antialiased font-sans">
         {children}
         <Analytics />
       </body>

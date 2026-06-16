@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { useScrollTo } from "@/lib/lenis-context";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -13,11 +14,15 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
+const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const { scrollYProgress } = useScroll();
   const [mobileScrolled, setMobileScrolled] = useState(false);
+  const scrollTo = useScrollTo();
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setIsScrolled(latest > 0.1);
@@ -34,22 +39,45 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      Boolean
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollTo(href);
     setIsMobileMenuOpen(false);
   };
+
+  const linkClass = (href) =>
+    cn(
+      "text-sm font-medium transition-colors relative group",
+      activeSection === href.slice(1)
+        ? "text-main"
+        : "text-muted hover:text-main"
+    );
 
   return (
     <>
       <motion.nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-base/80 backdrop-blur-xl"
-            : "bg-transparent"
+          isScrolled ? "bg-base/80 backdrop-blur-xl" : "bg-transparent"
         )}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -63,18 +91,19 @@ export default function Navbar() {
               whileHover={{ scale: 1.02 }}
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                scrollTo("#hero", { offset: 0 });
               }}
             >
-              <span className="text-main">SB</span><span className="text-accent">.</span>
+              <span className="text-main">SB</span>
+              <span className="text-accent">.</span>
             </motion.a>
 
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="text-muted hover:text-main text-sm font-medium transition-colors relative group"
+                  className={linkClass(link.href)}
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(link.href);
@@ -84,15 +113,34 @@ export default function Navbar() {
                   transition={{ delay: 0.1 + index * 0.05 }}
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+                  <span
+                    className={cn(
+                      "absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300",
+                      activeSection === link.href.slice(1)
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    )}
+                  />
                 </motion.a>
               ))}
+              <motion.a
+                href="/resume"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-accent hover:text-main transition-colors"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+              >
+                Resume
+              </motion.a>
             </div>
 
             <motion.button
               className="md:hidden p-2 text-main cursor-pointer"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -108,9 +156,7 @@ export default function Navbar() {
       <motion.div
         className={cn(
           "fixed top-16 md:top-20 left-0 right-0 z-40 md:hidden transition-all duration-300",
-          mobileScrolled
-            ? "bg-base/80 backdrop-blur-xl"
-            : "bg-transparent"
+          mobileScrolled ? "bg-base/80 backdrop-blur-xl" : "bg-transparent"
         )}
       >
         <motion.div
@@ -132,13 +178,19 @@ export default function Navbar() {
             <motion.a
               key={link.name}
               href={link.href}
-              className="text-2xl font-semibold text-main"
+              className={cn(
+                "text-2xl font-semibold transition-colors",
+                activeSection === link.href.slice(1) ? "text-accent" : "text-main"
+              )}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(link.href);
               }}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isMobileMenuOpen ? 1 : 0, y: isMobileMenuOpen ? 0 : 20 }}
+              animate={{
+                opacity: isMobileMenuOpen ? 1 : 0,
+                y: isMobileMenuOpen ? 0 : 20,
+              }}
               transition={{ delay: index * 0.1 }}
             >
               {link.name}

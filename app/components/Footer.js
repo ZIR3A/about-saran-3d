@@ -1,19 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, ArrowUp, Link, Globe } from "lucide-react";
+import { ArrowUp, Globe, Link, Share2, Mail } from "lucide-react";
+import { SOCIAL_LINKS, CONTACT_EMAIL } from "@/lib/constants";
+import { useScrollTo } from "@/lib/lenis-context";
 
-const socialLinks = [
-  { icon: Globe, href: "https://github.com", label: "GitHub" },
-  { icon: Link, href: "https://linkedin.com/in/saranbaral", label: "LinkedIn" },
-  { icon: Globe, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:saranbaral@email.com", label: "Email" },
-];
+const SOCIAL_ICONS = {
+  GitHub: Globe,
+  LinkedIn: Link,
+  Facebook: Share2,
+};
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollTo = useScrollTo();
 
   return (
     <footer className="relative py-12 md:py-16 border-t border-line bg-base">
@@ -27,7 +26,8 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <span className="text-xl font-bold tracking-tight">
-              <span className="text-main">SB</span><span className="text-accent">.</span>
+              <span className="text-main">SB</span>
+              <span className="text-accent">.</span>
             </span>
             <p className="text-sm text-muted">
               Frontend Engineer | Building fast web apps
@@ -35,28 +35,44 @@ export default function Footer() {
           </motion.div>
 
           <div className="flex items-center gap-4">
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-muted hover:text-main transition-colors"
-                aria-label={social.label}
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <social.icon size={20} />
-              </motion.a>
-            ))}
+            {SOCIAL_LINKS.map((social, index) => {
+              const Icon = SOCIAL_ICONS[social.label] ?? Mail;
+              return (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-muted hover:text-main transition-colors"
+                  aria-label={social.label}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Icon size={20} />
+                </motion.a>
+              );
+            })}
+            <motion.a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="p-2 text-muted hover:text-main transition-colors"
+              aria-label="Email"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Mail size={20} />
+            </motion.a>
           </div>
 
           <motion.button
-            onClick={scrollToTop}
+            onClick={() => scrollTo("#hero", { offset: 0 })}
             className="p-3 text-muted hover:text-main transition-colors border border-line hover:border-accent rounded-full cursor-pointer"
             aria-label="Scroll to top"
             whileHover={{ scale: 1.1, y: -2 }}
@@ -73,7 +89,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <p>&copy; {new Date().getFullYear()} Saran Baral. All rights reserved.</p>
+          <p>&copy; 2026 Saran Baral. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>

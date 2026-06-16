@@ -1,125 +1,135 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Download } from "lucide-react";
+import { useScrollTo } from "@/lib/lenis-context";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
+import { heroExpertise, personalProfile } from "@/lib/portfolio-data";
+import { RESUME_PDF, RESUME_PDF_DOWNLOAD_NAME } from "@/lib/constants";
+import Button from "../components/ui/Button";
 
 export default function Hero() {
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const scrollTo = useScrollTo();
+  const reducedMotion = useReducedMotion();
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden"
+      className="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-24 md:py-28 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-transparent z-10" />
+      <div className="scanlines scanlines-hero" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-r from-base via-base/95 to-transparent z-10 pointer-events-none md:max-w-[65%]" />
 
-      <div className="relative z-20 max-w-5xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-4"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-soft border border-accent/30 text-accent text-sm font-medium">
-            <Sparkles size={14} />
-            Available for projects
-          </span>
-        </motion.div>
-
-        <motion.h1
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-7xl font-bold text-main tracking-tight mb-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Hi, I&apos;m{" "}
-          <span className="text-accent">
-            Saran Baral
-          </span>
-        </motion.h1>
-
-        <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-muted max-w-3xl mx-auto mb-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Frontend Engineer building{" "}
-          <span className="text-main">fast, intuitive web experiences</span>.
-        </motion.p>
-
-        <motion.p
-          className="text-base sm:text-lg text-muted/70 max-w-2xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          4+ years crafting modern web apps with React & Next.js.
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <motion.button
-            onClick={() => scrollToSection("#projects")}
-            className="group relative inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full overflow-hidden cursor-pointer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+      <div className="relative z-20 max-w-7xl mx-auto w-full">
+        <div className="max-w-2xl lg:max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6 }}
+            className="mb-5"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              View Work
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-soft border border-accent/30 text-accent text-sm font-medium font-mono">
+              <Sparkles size={14} />
+              Available for projects
             </span>
-            <motion.div
-              className="absolute inset-0 bg-accent/80"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
+          </motion.div>
 
-          <motion.button
-            onClick={() => scrollToSection("#contact")}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-line text-main font-semibold rounded-full hover:border-accent hover:text-accent transition-colors cursor-pointer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <motion.p
+            className="section-label text-accent text-sm font-semibold tracking-widest uppercase mb-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.5 }}
           >
-            Contact Me
-          </motion.button>
-        </motion.div>
+            {personalProfile.role}
+          </motion.p>
 
-        
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-main tracking-tight mb-5 text-balance"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.1 }}
+          >
+            Hi, I&apos;m{" "}
+            <span className="text-accent">Saran Baral</span>
+          </motion.h1>
+
+          <motion.p
+            className="text-xl sm:text-2xl md:text-3xl text-main font-medium max-w-2xl mb-4 text-balance leading-snug"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.15 }}
+          >
+            {personalProfile.headline}
+          </motion.p>
+
+          <motion.p
+            className="text-[1rem] sm:text-lg text-muted max-w-xl mb-6 leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.2 }}
+          >
+            {personalProfile.bio}{" "}
+            <span className="text-main">{personalProfile.aboutSummary}</span>
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap gap-2 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.25 }}
+          >
+            {heroExpertise.map((item) => (
+              <span
+                key={item}
+                className="px-3 py-1 text-xs font-medium text-muted border border-line rounded-full bg-surface/50"
+              >
+                {item}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.3 }}
+          >
+            <Button onClick={() => scrollTo("#projects")} variant="primary">
+              View Work
+              <ArrowRight size={18} />
+            </Button>
+            <Button
+              href={encodeURI(RESUME_PDF)}
+              download={RESUME_PDF_DOWNLOAD_NAME}
+              variant="secondary"
+            >
+              <Download size={18} />
+              Download Resume
+            </Button>
+            <Button onClick={() => scrollTo("#contact")} variant="secondary">
+              Contact Me
+            </Button>
+          </motion.div>
+        </div>
       </div>
 
       <motion.div
-          className="absolute bottom-8 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reducedMotion ? 0 : 1, duration: reducedMotion ? 0 : 0.5 }}
+      >
+        <span className="text-muted text-xs tracking-widest uppercase font-mono hidden sm:block">
+          Scroll
+        </span>
+        <motion.div
+          className="w-6 h-10 rounded-full border-2 border-line flex items-start justify-center p-1.5"
+          animate={reducedMotion ? undefined : { y: [0, 6, 0] }}
+          transition={reducedMotion ? undefined : { duration: 1.5, repeat: Infinity }}
         >
-          <span className="text-muted text-xs sm:text-sm tracking-widest uppercase">Scroll down</span>
-          <motion.div
-            className="w-6 sm:w-8 h-10 sm:h-14 rounded-full border-2 border-line flex items-start justify-center p-1 sm:p-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <motion.div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-accent" />
-          </motion.div>
-          <motion.div
-            className="absolute -bottom-8 sm:-bottom-12 left-1/2 -translate-x-1/2 w-px h-6 sm:h-8 bg-line"
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 1.5, duration: 0.8 }}
-          />
+          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
         </motion.div>
+      </motion.div>
     </section>
   );
 }
